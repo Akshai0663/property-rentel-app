@@ -1,0 +1,60 @@
+.add-property-container {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 40px;
+  border-radius: 20px;
+  background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  animation: slideIn 0.6s ease;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.form-title {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.property-form input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.property-form input:focus {
+  outline: none;
+  border-color: #6c63ff;
+  box-shadow: 0 0 8px rgba(108, 99, 255, 0.2);
+}
+
+.property-form button {
+  width: 100%;
+  padding: 14px;
+  background-color: #6c63ff;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.property-form button:hover {
+  background-color: #574fd6;
+  transform: translateY(-2px);
+}

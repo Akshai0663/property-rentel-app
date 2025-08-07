@@ -1,0 +1,20 @@
+.dashboard {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #f4f8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.dashboard h2 {
+  font-size: 28px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.dashboard p {
+  font-size: 18px;
+  color: #555;
+}

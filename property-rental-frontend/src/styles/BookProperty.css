@@ -1,0 +1,52 @@
+.book-property {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.book-property h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.book-property label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.book-property input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.book-property button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.book-property button:hover {
+  background-color: #0056b3;
+}
+
+.book-property p {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}

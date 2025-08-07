@@ -1,0 +1,53 @@
+.property-detail-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.property-detail-container h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.property-detail-container p {
+  margin: 5px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.property-detail-container label {
+  font-weight: bold;
+  display: block;
+  margin-top: 15px;
+}
+
+.property-detail-container input[type="date"] {
+  padding: 8px;
+  font-size: 15px;
+  margin-top: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.property-detail-container button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.property-detail-container button:hover {
+  background-color: #45a049;
+}
+
+.property-detail-container p.message {
+  margin-top: 15px;
+  color: #d32f2f;
+  font-weight: bold;
+}

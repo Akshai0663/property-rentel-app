@@ -1,0 +1,33 @@
+footer {
+  width: 100%;
+  padding: 1rem 0;
+  text-align: center;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  animation: slideUpFade 0.8s ease-in-out;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+/* Optional: Add a hover effect */
+footer:hover {
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  transition: background 0.3s ease-in-out;
+}
+
+/* Animation for slide up + fade in */
+@keyframes slideUpFade {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

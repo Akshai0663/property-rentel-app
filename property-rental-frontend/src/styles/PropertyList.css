@@ -1,0 +1,91 @@
+/* Common container for all views */
+.container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fefefe;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+h3 {
+  margin: 10px 0;
+  color: #444;
+}
+
+/* Property card */
+.property-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  background-color: #fafafa;
+  transition: box-shadow 0.3s;
+}
+
+.property-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Link button */
+.link-button {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.link-button:hover {
+  background-color: #0056b3;
+}
+
+/* Booking input + button */
+.booking-form {
+  margin-top: 20px;
+}
+
+.booking-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.booking-form input[type="date"] {
+  padding: 8px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.booking-form button {
+  padding: 10px 18px;
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.booking-form button:hover {
+  background-color: darkgreen;
+}
+
+/* Message paragraph */
+.message {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #444;
+}
