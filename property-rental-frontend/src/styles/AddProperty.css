@@ -1,13 +1,15 @@
 .add-property-container {
+  width: 100%;
   max-width: 500px;
-  margin: 80px auto;
-  padding: 40px;
+  margin: clamp(40px, 8vh, 100px) auto;
+  padding: clamp(20px, 5vw, 40px);
   border-radius: 20px;
   background: linear-gradient(to bottom right, #ffffff, #f2f2f2);
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
   animation: slideIn 0.6s ease;
 }
 
+/* Animation */
 @keyframes slideIn {
   from {
     transform: translateY(-20px);
@@ -19,20 +21,22 @@
   }
 }
 
+/* Title */
 .form-title {
   text-align: center;
-  font-size: 24px;
+  font-size: clamp(20px, 4vw, 24px);
   color: #333;
-  margin-bottom: 30px;
+  margin-bottom: clamp(20px, 4vw, 30px);
 }
 
+/* Inputs */
 .property-form input {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 20px;
+  padding: clamp(12px, 3vw, 14px);
+  margin-bottom: clamp(14px, 3vw, 20px);
   border: 1px solid #ccc;
   border-radius: 12px;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   transition: all 0.3s ease;
 }
 
@@ -42,14 +46,15 @@
   box-shadow: 0 0 8px rgba(108, 99, 255, 0.2);
 }
 
+/* Button */
 .property-form button {
   width: 100%;
-  padding: 14px;
+  padding: clamp(12px, 3vw, 14px);
   background-color: #6c63ff;
   color: #fff;
   border: none;
   border-radius: 12px;
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
@@ -57,4 +62,25 @@
 .property-form button:hover {
   background-color: #574fd6;
   transform: translateY(-2px);
+}
+
+/* 📱 Small screens (phones < 480px) */
+@media (max-width: 480px) {
+  .add-property-container {
+    border-radius: 14px;
+  }
+}
+
+/* 📱 Tablets (480px – 768px) */
+@media (max-width: 768px) {
+  .add-property-container {
+    max-width: 90%;
+  }
+}
+
+/* 🖥 Large screens (1200px+) */
+@media (min-width: 1200px) {
+  .add-property-container {
+    max-width: 520px;
+  }
 }

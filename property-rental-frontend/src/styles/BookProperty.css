@@ -1,52 +1,83 @@
 .book-property {
+  width: 100%;
   max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: clamp(20px, 6vh, 40px) auto;
+  padding: clamp(16px, 4vw, 20px);
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 12px;
   background-color: #f9f9f9;
 }
 
+/* Title */
 .book-property h2 {
-  margin-bottom: 20px;
-  font-size: 24px;
+  margin-bottom: clamp(16px, 4vw, 20px);
+  font-size: clamp(20px, 4vw, 24px);
   text-align: center;
 }
 
+/* Labels */
 .book-property label {
   display: block;
-  margin: 10px 0 5px;
+  margin: clamp(8px, 3vw, 10px) 0 clamp(4px, 2vw, 5px);
   font-weight: bold;
+  font-size: clamp(14px, 3vw, 16px);
 }
 
+/* Inputs */
 .book-property input {
   width: 100%;
-  padding: 10px;
-  font-size: 16px;
+  padding: clamp(10px, 3vw, 12px);
+  font-size: clamp(14px, 3vw, 16px);
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
+/* Button */
 .book-property button {
   width: 100%;
-  margin-top: 20px;
-  padding: 12px;
-  font-size: 16px;
+  margin-top: clamp(16px, 4vw, 20px);
+  padding: clamp(12px, 3vw, 14px);
+  font-size: clamp(14px, 3vw, 16px);
   font-weight: bold;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .book-property button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px);
 }
 
+/* Message */
 .book-property p {
   margin-top: 15px;
   font-weight: bold;
   color: #333;
   text-align: center;
+  font-size: clamp(14px, 3vw, 16px);
+}
+
+/* 📱 Mobile phones */
+@media (max-width: 480px) {
+  .book-property {
+    border-radius: 14px;
+  }
+}
+
+/* 📱 Tablets */
+@media (max-width: 768px) {
+  .book-property {
+    max-width: 90%;
+  }
+}
+
+/* 🖥 Large screens */
+@media (min-width: 1200px) {
+  .book-property {
+    max-width: 520px;
+  }
 }

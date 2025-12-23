@@ -1,44 +1,77 @@
 .booking-form {
+  width: 100%;
   max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: clamp(20px, 6vh, 40px) auto;
+  padding: clamp(16px, 4vw, 20px);
   border: 1px solid #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #f9f9f9;
 }
 
+/* Title */
 .booking-form h2 {
-  margin-bottom: 20px;
+  margin-bottom: clamp(16px, 4vw, 20px);
+  font-size: clamp(18px, 4vw, 22px);
+  text-align: center;
 }
 
+/* Form layout */
 .booking-form form {
   display: flex;
   flex-direction: column;
 }
 
+/* Inputs */
 .booking-form input {
-  margin-bottom: 12px;
-  padding: 10px;
-  font-size: 16px;
+  margin-bottom: clamp(10px, 3vw, 12px);
+  padding: clamp(10px, 3vw, 12px);
+  font-size: clamp(14px, 3vw, 16px);
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
+/* Button */
 .booking-form button {
-  padding: 10px;
-  font-size: 16px;
+  padding: clamp(10px, 3vw, 12px);
+  font-size: clamp(14px, 3vw, 16px);
   background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .booking-form button:hover {
   background-color: #218838;
+  transform: translateY(-2px);
 }
 
+/* Message */
 .booking-form p {
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: bold;
+  font-size: clamp(14px, 3vw, 16px);
+  text-align: center;
+}
+
+/* 📱 Mobile phones */
+@media (max-width: 480px) {
+  .booking-form {
+    border-radius: 12px;
+  }
+}
+
+/* 📱 Tablets */
+@media (max-width: 768px) {
+  .booking-form {
+    max-width: 90%;
+  }
+}
+
+/* 🖥 Large screens */
+@media (min-width: 1200px) {
+  .booking-form {
+    max-width: 520px;
+  }
 }
