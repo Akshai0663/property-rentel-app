@@ -19,6 +19,16 @@ const UserSchema = new mongoose.Schema({
     enum: ['admin', 'owner', 'renter'],
     default: 'renter',
   },
+
+  // 🔥 INTENTIONALLY VULNERABLE OTP FIELDS
+  otp: {
+    type: String
+  },
+  verified: {
+    type: Boolean,
+    default: false
+  }
+
 }, { timestamps: true });
 
 const User = mongoose.models.User || mongoose.model('User', UserSchema);

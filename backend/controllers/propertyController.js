@@ -28,6 +28,17 @@ exports.getAllProperties = async (req, res) => {
   }
 };
 
+exports.searchProperties = async (req, res) => {
+  // ❌ VULNERABLE: NoSQL Injection via query parameters (e.g. ?price[$gt]=0)
+  try {
+    const filter = req.query;
+    const properties = await Property.find(filter);
+    res.json(properties);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 exports.getPropertyById = async (req, res) => {
   try {
     const property = await Property.findById(req.params.id);

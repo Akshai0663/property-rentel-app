@@ -25,6 +25,19 @@ router.get('/', async (req, res) => {
   }
 });
 
+// ❌ VULNERABLE: NoSQL Injection Search
+// @route   GET /api/properties/search
+router.get('/search', async (req, res) => {
+  try {
+    const filter = req.query;
+    // Example: ?price[$gt]=0
+    const properties = await Property.find(filter);
+    res.json(properties);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // ✅ FIXED HERE
 // @route   GET /api/properties/:id
 // @desc    Get a property by ID

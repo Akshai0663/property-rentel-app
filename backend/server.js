@@ -11,9 +11,13 @@ dotenv.config();
 connectDB();
 
 // App setup
+const path = require('path'); // Ensure path is required
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+// ❌ SERVE UPLOADS STATICALLY (Stored XSS)
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));

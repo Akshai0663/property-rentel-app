@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useAuth } from '../../context/AuthContext';
 import '../../styles/AddProperty.css';
 
 function AddProperty() {
-  const { user } = useAuth();
   const [form, setForm] = useState({
     title: '',
-    description: '',
     location: '',
-    price: '',
-    owner: user?._id
+    price: ''
   });
+
+  const [image, setImage] = useState(null);
+  const [msg, setMsg] = useState('');
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -19,29 +18,41 @@ function AddProperty() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/properties', form, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-      alert('Property added!');
+      const data = new FormData();
+      data.append('image', image);
+      data.append('title', form.title);
+      data.append('location', form.location);
+      data.append('price', form.price);
+
+      const res = await axios.post(
+        'http://localhost:5000/api/upload',
+        data
+      );
+
+      setMsg(`Uploaded file: ${res.data.file.filename}`);
     } catch (err) {
-      alert('Error adding property');
+      setMsg('Upload failed');
     }
   };
 
   return (
     <div className="add-property-container">
-      <h2 className="form-title">Add New Property</h2>
-      <form onSubmit={handleSubmit} className="property-form">
+      <h2>Add Property (Vulnerable Upload)</h2>
+
+      <form onSubmit={handleSubmit}>
         <input name="title" placeholder="Title" onChange={handleChange} required />
-        <input name="description" placeholder="Description" onChange={handleChange} required />
         <input name="location" placeholder="Location" onChange={handleChange} required />
-        <input name="price" type="number" placeholder="Price" onChange={handleChange} required />
-        <button type="submit">Submit Property</button>
+        <input name="price" placeholder="Price" onChange={handleChange} required />
+
+        {/* ❌ NO VALIDATION */}
+        <input type="file" onChange={e => setImage(e.target.files[0])} />
+
+        <button type="submit">Upload</button>
       </form>
+
+      {msg && <p>{msg}</p>}
     </div>
   );
 }

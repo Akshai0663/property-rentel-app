@@ -3,71 +3,104 @@ import axios from 'axios';
 import '../../styles/Register.css';
 
 function Register() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        role: 'renter'
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'renter'
+  });
+
+  const [error, setError] = useState('');
+  const [msg, setMsg] = useState('');
+  const [emailSent, setEmailSent] = useState(false);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const sendOtp = async () => {
+    await axios.post('http://localhost:5000/api/otp/send', {
+      email: formData.email
     });
+    setMsg('Verification code re-sent to your email.');
+  };
 
-    const [error, setError] = useState('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Register user
+      await axios.post('http://localhost:5000/api/auth/register', formData);
 
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+      // Send OTP silently
+      await sendOtp();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:5000/api/auth/register', formData);
-            alert(res.data.message);
-            setError('');
-        } catch (err) {
-            console.error('Registration failed:', err);
-            if (err.response && err.response.data && err.response.data.message) {
-                setError(err.response.data.message);
-            } else {
-                setError('Server is not responding. Please check if the backend is running.');
-            }
-        }
-    };
+      setEmailSent(true);
+      setError('');
+      setMsg(
+        'Registration successful. Your account is pending verification.'
+      );
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed');
+      setMsg('');
+    }
+  };
 
-    return (
-        <div className="auth-container">
-            <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Register</h2>
+  return (
+    <div className="auth-container">
+      <form className="auth-form" onSubmit={handleSubmit}>
+        <h2>Create Account</h2>
 
-                {error && <div className="error">{error}</div>}
+        {error && <div className="error">{error}</div>}
+        {msg && <div style={{ color: 'green', marginBottom: '1rem' }}>{msg}</div>}
 
-                <div className="form-group">
-                    <label htmlFor="name">Name</label>
-                    <input type="text" name="name" id="name" onChange={handleChange} required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" name="email" id="email" onChange={handleChange} required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" onChange={handleChange} required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="role">Role</label>
-                    <select name="role" id="role" onChange={handleChange}>
-                        <option value="renter">Renter</option>
-                        <option value="owner">Owner</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                <button type="submit">Register</button>
-                <p>Already have an account? <a href="/login">Login</a></p>
-            </form>
+        <div className="form-group">
+          <label>Name</label>
+          <input name="name" onChange={handleChange} required />
         </div>
-    );
+
+        <div className="form-group">
+          <label>Email</label>
+          <input name="email" type="email" onChange={handleChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Password</label>
+          <input name="password" type="password" onChange={handleChange} required />
+        </div>
+
+        <div className="form-group">
+          <label>Role</label>
+          <select name="role" onChange={handleChange}>
+            <option value="renter">Renter</option>
+            <option value="owner">Owner</option>
+            <option value="admin">Admin</option> {/* ❌ INTENTIONAL */}
+          </select>
+        </div>
+
+        {!emailSent && <button type="submit">Register</button>}
+
+        {/* 🔥 Pending Verification Banner */}
+        {emailSent && (
+          <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+            <p>⚠️ Account Status: <strong>Pending Verification</strong></p>
+            <button
+              type="button"
+              onClick={sendOtp}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#6366f1',
+                cursor: 'pointer',
+                fontWeight: 'bold'
+              }}
+            >
+              🔁 Resend OTP
+            </button>
+          </div>
+        )}
+      </form>
+    </div>
+  );
 }
 
 export default Register;

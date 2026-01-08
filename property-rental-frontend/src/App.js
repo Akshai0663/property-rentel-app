@@ -6,10 +6,14 @@ import Navbar from './components/common/Navbar';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
 import ProtectedRoute from './components/common/ProtectedRoute';
+import Payment from './components/common/Payment';
+import Upload from './components/common/Upload';
+import Profile from './components/common/Profile';
 
 // Auth
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import VerifyOtp from './components/auth/VerifyOtp';
 
 // Dashboards
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -39,10 +43,16 @@ function App() {
   const { user } = useAuth();
   const location = useLocation();
 
-  // Show Header only for public pages
-  const showHeader = ["/", "/login", "/register", "/properties"].includes(location.pathname);
+  // Header only for public pages
+  const showHeader = [
+    '/',
+    '/login',
+    '/register',
+    '/verify-otp',
+    '/properties'
+  ].includes(location.pathname);
 
-  // Role-based redirection
+  // Role-based default redirect
   const getDefaultRedirect = () => {
     if (!user) return <Navigate to="/login" replace />;
     if (user.role === 'admin') return <Navigate to="/admin" replace />;
@@ -53,34 +63,123 @@ function App() {
 
   return (
     <>
-      {/* Show Header only on public routes */}
       {showHeader && <Header />}
       <Navbar />
 
       <Routes>
+        {/* Root */}
         <Route path="/" element={getDefaultRedirect()} />
 
-        {/* Auth Routes */}
+        {/* Auth */}
         <Route path="/login" element={!user ? <Login /> : getDefaultRedirect()} />
         <Route path="/register" element={!user ? <Register /> : getDefaultRedirect()} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
-        <Route path="/admin/bookings" element={<ProtectedRoute allowedRoles={['admin']}><BookingDashboard /></ProtectedRoute>} />
+        {/* 🔥 OTP verification (intentionally bypassable) */}
+        <Route path="/verify-otp" element={<VerifyOtp />} />
 
-        {/* Owner Routes */}
-        <Route path="/owner" element={<ProtectedRoute allowedRoles={['owner']}><OwnerDashboard /></ProtectedRoute>} />
-        <Route path="/owner/add-property" element={<ProtectedRoute allowedRoles={['owner']}><AddProperty /></ProtectedRoute>} />
-        <Route path="/owner/bookings" element={<ProtectedRoute allowedRoles={['owner']}><OwnerBookings /></ProtectedRoute>} />
+        {/* 🔥 Profile (mass assignment role escalation) */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'owner', 'renter']}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Renter Routes */}
-        <Route path="/renter" element={<ProtectedRoute allowedRoles={['renter']}><RenterDashboard /></ProtectedRoute>} />
+        {/* 🔥 LAB 2 — PAYMENT BYPASS */}
+        <Route
+          path="/payment"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'owner', 'renter']}>
+              <Payment />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* 🔥 LAB 3 — FILE UPLOAD (Stored XSS) */}
+        <Route
+          path="/upload"
+          element={
+            <ProtectedRoute allowedRoles={['admin', 'owner', 'renter']}>
+              <Upload />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Admin */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/bookings"
+          element={
+            <ProtectedRoute allowedRoles={['admin']}>
+              <BookingDashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Owner */}
+        <Route
+          path="/owner"
+          element={
+            <ProtectedRoute allowedRoles={['owner']}>
+              <OwnerDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/owner/add-property"
+          element={
+            <ProtectedRoute allowedRoles={['owner']}>
+              <AddProperty />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/owner/bookings"
+          element={
+            <ProtectedRoute allowedRoles={['owner']}>
+              <OwnerBookings />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Renter */}
+        <Route
+          path="/renter"
+          element={
+            <ProtectedRoute allowedRoles={['renter']}>
+              <RenterDashboard />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/properties/:id" element={<PropertyDetails />} />
-        <Route path="/book/:id" element={<ProtectedRoute allowedRoles={['renter']}><BookingForm /></ProtectedRoute>} />
-        <Route path="/renter/bookings" element={<ProtectedRoute allowedRoles={['renter']}><MyBookings /></ProtectedRoute>} />
+        <Route
+          path="/book/:id"
+          element={
+            <ProtectedRoute allowedRoles={['renter']}>
+              <BookingForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/renter/bookings"
+          element={
+            <ProtectedRoute allowedRoles={['renter']}>
+              <MyBookings />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Catch-all */}
+        {/* 404 */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
