@@ -21,7 +21,7 @@ function AddProperty() {
 
     try {
       const data = new FormData();
-      data.append('image', image);
+      data.append('file', image);
       data.append('title', form.title);
       data.append('location', form.location);
       data.append('price', form.price);
